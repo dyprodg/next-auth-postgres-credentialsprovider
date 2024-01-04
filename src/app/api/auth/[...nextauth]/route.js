@@ -15,7 +15,6 @@ export const authOptions = {
                 const { email, password } = credentials;
 
                 try {
-                    // Verwenden Sie Prisma, um den Benutzer zu finden
                     const user = await prisma.user.findUnique({
                         where: { email }
                     });
@@ -39,8 +38,8 @@ export const authOptions = {
     ],
     session: {
         strategy: 'jwt',
-        maxAge: 7 * 24 * 60 * 60, // 7 Tage in Sekunden
-        updateAge: 0, // Erneuert die Session bei jeder Anmeldung
+        maxAge: 7 * 24 * 60 * 60, 
+        updateAge: 0, 
     },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {

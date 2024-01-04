@@ -9,15 +9,12 @@ const Timeline = () => {
     const { data: session } = useSession();
 
     useEffect(() => {
-        // Wenn keine Session vorhanden ist, umleiten zur Startseite
         if (!session) {
             router.push('/');
         }
     }, [session, router]);
     if (!session) {
-        return null; // Keine visuelle Ausgabe, während auf die Umleitung gewartet wird
-    } else { 
-        console.log(session)
+        return null; 
     }
 
     return (

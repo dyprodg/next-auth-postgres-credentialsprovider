@@ -12,7 +12,7 @@ export async function POST(req) {
         if (!email) {
             return NextResponse.json({ message: 'Email is required' });
         }
-        // Prüfen, ob bereits ein Nutzer mit der gleichen E-Mail existiert
+
         const existingUser = await prisma.user.findUnique({
             where: {
                 email
@@ -23,10 +23,10 @@ export async function POST(req) {
             return NextResponse.json({ message: 'E-Mail already taken' });
         }
 
-        // Hashing des Passworts
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Neuen Nutzer in der Datenbank erstellen
+
         const user = await prisma.user.create({
             data: {
                 username,
