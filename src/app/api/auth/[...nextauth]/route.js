@@ -39,6 +39,8 @@ export const authOptions = {
     ],
     session: {
         strategy: 'jwt',
+        maxAge: 7 * 24 * 60 * 60, // 7 Tage in Sekunden
+        updateAge: 0, // Erneuert die Session bei jeder Anmeldung
     },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
