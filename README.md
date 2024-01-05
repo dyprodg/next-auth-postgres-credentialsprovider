@@ -218,13 +218,6 @@ If you'd like to contribute to this project, please follow the standard GitHub f
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 ```
 
-## Contributing
-
-If you'd like to contribute to this project, please follow the standard GitHub flow: Fork the repository, make your changes, and submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 ```
 ## Warning
 
