@@ -9,18 +9,21 @@ export async function POST(req) {
         const { username, email, password } = await req.json();
         
 
-        if (!email) {
-            return NextResponse.json({ message: 'Email is required' });
+        if (!email || !username) {
+            return NextResponse.json({ message: 'Email and Username are required' });
         }
 
-        const existingUser = await prisma.user.findUnique({
+        const existingUser = await prisma.user.findFirst({
             where: {
-                email
+                OR: [
+                    { email: email},
+                    { username: username }
+                ]
             }
         });
 
         if (existingUser) {
-            return NextResponse.json({ message: 'E-Mail already taken' });
+            return NextResponse.json({ status: 409, message: 'E-Mail or Username are already taken' });
         }
 
 
@@ -35,7 +38,7 @@ export async function POST(req) {
             }
         });
 
-        return NextResponse.json({ status : 201});
+        return NextResponse.json({ status : 201, message: 'Account creation successfull'});
     } catch (error) {
         console.error('An error accoured', error);
         return NextResponse.json({ message: 'An error accoured' });

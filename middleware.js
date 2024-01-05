@@ -7,7 +7,7 @@ export async function middleware(req) {
   const pathname = url.pathname;
 
   // Keine Authentifizierung für die Startseite und die Redirect-Seite erforderlich
-  if (pathname === '/' || pathname === '/redirect') {
+  if (pathname === '/' || pathname === '/register') {
     return NextResponse.next();
   }
 
