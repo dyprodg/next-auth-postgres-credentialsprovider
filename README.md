@@ -216,9 +216,7 @@ If you'd like to contribute to this project, please follow the standard GitHub f
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-```
 
-```
 ## Warning
 
 I do not take responsibility for the code in case errors occur.
