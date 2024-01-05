@@ -7,6 +7,7 @@ Follow these steps to set up and run the project locally.
 
 - Docker
 - Node.js and npm
+- git 
 
 ## Step 1: Clone the Repository
 
@@ -225,4 +226,6 @@ If you'd like to contribute to this project, please follow the standard GitHub f
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 ```
+## Warning
 
+I do not take responsibility for the code in case errors occur.
