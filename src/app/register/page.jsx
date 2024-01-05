@@ -1,10 +1,13 @@
 import React from 'react'
 import Registration from '../components/Registration'
 
+
 const register = () => {
   return (
+    // Render the 'Registration' component
     <Registration />
   )
 }
 
-export default register
+// Export the 'register' component
+export default register;

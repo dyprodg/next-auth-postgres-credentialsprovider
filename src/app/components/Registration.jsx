@@ -7,8 +7,8 @@ import RegistrationForm from "./RegistrationForm";
 import { signIn } from "next-auth/react";
 
 
-
 const Registration = () => {
+  // Define state variables for username, email, password, message, and isSuccess
   const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,12 +16,13 @@ const Registration = () => {
   const [isSuccess, setIsSuccess] = useState(false)
   const router = useRouter();
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     setMessage('')
     setIsSuccess(false)
-    //call registration api
+    // Call registration API
     try {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
@@ -33,10 +34,10 @@ const Registration = () => {
   
       const data = await response.json();
       console.log(response, data)
-      //success
+      // If registration is successful
       if (data.status === 201) { 
         setIsSuccess(true)
-        //call signin api
+        // Call signin API after a delay
         setTimeout(async () => {
           try {
             const res = await signIn('credentials', {
@@ -54,27 +55,24 @@ const Registration = () => {
         }, 2000); 
 
       } else {
-        //registration error
+        // Registration error
         setMessage(data.message || 'Error during registration');
       }
     } catch (error) {
-      //api error
+      // API error
       console.error('Registration error', error);
       setMessage('Server error.');
     }
   };
-  
-  
 
+  // Render the registration form and checkmark component if registration is successful
   return (
     <div className='flex w-full h-screen justify-center items-center'>
       <div className='flex flex-col bumpup w-[335px]'>
       <h1 className='text-2xl text-center mt-5'>Register</h1>
         {isSuccess ? (
         <CheckMark />
-
       ) : (
-        
         <RegistrationForm
             username={username}
             setName={setName}
@@ -86,7 +84,6 @@ const Registration = () => {
             message={message}
           />
         )} 
-       
       </div>
     </div>
   );

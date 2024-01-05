@@ -5,8 +5,8 @@ import { AuthProviders } from './Providers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Phoshare',
-  description: 'Share you photos online',
+  title: 'Next-Auth Postgres',
+  description: 'Postgres Next.js Next-Auth Template',
 }
 
 export default function RootLayout({ children }) {

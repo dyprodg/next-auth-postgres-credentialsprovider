@@ -3,26 +3,32 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
 
+// Initialize a Prisma client
 const prisma = new PrismaClient();
 
+// Define authentication options
 export const authOptions = {
     providers: [
+        // Configure the CredentialsProvider for handling login with email and password
         CredentialsProvider({
             name: 'credentials',
             credentials: {},
             async authorize(credentials) {
+                // Extract email and password from provided credentials
                 const { email, password } = credentials;
 
                 try {
+                    // Find a user in the database based on the provided email
                     const user = await prisma.user.findUnique({
                         where: { email },
                     });
 
+                    // Check if the user doesn't exist or the password doesn't match
                     if (!user || !await bcrypt.compare(password, user.password)) {
                         return null;
                     }
 
-                    return user; // Das komplette Benutzerobjekt wird zurückgegeben
+                    return user; // Return the authenticated user
                 } catch (error) {
                     console.log('Error:', error);
                 }
@@ -39,6 +45,7 @@ export const authOptions = {
         signIn: '/',
     },
     callbacks: {
+        // Define callbacks for JWT and session management
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id; 
@@ -54,6 +61,8 @@ export const authOptions = {
     },
 };
 
+// Create the authentication handler using NextAuth with the defined options
 const handler = NextAuth(authOptions);
 
+// Export the handler for both GET and POST requests
 export { handler as GET, handler as POST };

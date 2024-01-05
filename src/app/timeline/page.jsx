@@ -1,4 +1,6 @@
 'use client'
+
+
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -6,13 +8,11 @@ import LogoutButton from "../components/LogoutButton";
 
 
 const Timeline = () => {
-    const router = useRouter();
+    const router = useRouter(); 
     const { data: session } = useSession();
     const [userDetails, setUserDetails] = useState(null)
-    
 
-    console.log(session)
-
+    //useEffect for redirection in case no user is logged in (Middleware not implemented yet)
     useEffect(() => {
         if (!session) {
             router.push('/');
@@ -22,6 +22,7 @@ const Timeline = () => {
         return null; 
     }
 
+    //component that shows logout button and active user data
     return (
         <div className="flex w-full h-screen flex-col">
             <div className="flex w-full justify-end"> 
