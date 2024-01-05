@@ -87,7 +87,6 @@ const Registration = () => {
           />
         )} 
        
-      
       </div>
     </div>
   );

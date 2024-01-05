@@ -10,26 +10,19 @@ export const authOptions = {
         CredentialsProvider({
             name: 'credentials',
             credentials: {},
-
             async authorize(credentials) {
                 const { email, password } = credentials;
 
                 try {
                     const user = await prisma.user.findUnique({
-                        where: { email }
+                        where: { email },
                     });
 
-                    if (!user) {
+                    if (!user || !await bcrypt.compare(password, user.password)) {
                         return null;
                     }
 
-                    const passwordsMatch = await bcrypt.compare(password, user.password);
-
-                    if (!passwordsMatch) {
-                        return null;
-                    }
-
-                    return user;
+                    return user; // Das komplette Benutzerobjekt wird zurückgegeben
                 } catch (error) {
                     console.log('Error:', error);
                 }
@@ -38,12 +31,26 @@ export const authOptions = {
     ],
     session: {
         strategy: 'jwt',
-        maxAge: 7 * 24 * 60 * 60, 
-        updateAge: 0, 
+        maxAge: 7 * 24 * 60 * 60,
+        updateAge: 0,
     },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
         signIn: '/',
+    },
+    callbacks: {
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id; 
+                token.username = user.username; 
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            session.user.id = token.id; 
+            session.user.username = token.username; 
+            return session;
+        }
     },
 };
 
