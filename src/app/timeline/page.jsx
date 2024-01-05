@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import LogoutButton from "../components/LogoutButton";
-import { getActiveUser } from "@/lib/GetActiveUser";
+
 
 const Timeline = () => {
     const router = useRouter();
